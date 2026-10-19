@@ -15,7 +15,7 @@
       --cream: #fffdf4;
       --ink: #183327;
       --muted: #64736a;
-      --line: #dce5d8;
+      --line: #e5d9c9;
       --shadow: 0 18px 50px rgb(25 58 42 / 9%);
       font-family: "Trebuchet MS", Arial, sans-serif;
     }
@@ -444,6 +444,134 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
     }
+
+    .brand-mark { border-color: var(--green-deep); border-radius: 50%; background: var(--yellow); }
+    .site-header { color: var(--green-deep); }
+    .hero {
+      border-color: var(--green-deep);
+      background: var(--yellow);
+      box-shadow: 7px 8px 0 #d7c6af;
+    }
+    .hero h1 { color: var(--green-deep); }
+    .hero .eyebrow, .hero .hero-description { color: var(--green-dark); }
+    .hero .eyebrow::before { background: #ee8069; }
+    .date-pill { border-color: var(--green-deep); background: var(--cream); color: var(--green-deep); }
+    .hero-sticker { border: 2px solid var(--green-deep); background: #ee8069; color: var(--green-deep); }
+    .section-heading h2, .section-heading p { color: var(--green-deep); }
+    .demo-badge { border-color: #d7c6af; color: var(--green-dark); }
+    .slots { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .slot {
+      position: relative;
+      display: flex;
+      min-height: 238px;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px 17px;
+      border-color: #e5d9c9;
+      background: var(--cream);
+      box-shadow: 0 10px 28px rgb(39 63 46 / 7%);
+    }
+    .slot.is-selected {
+      outline: 3px solid var(--yellow);
+      outline-offset: 2px;
+      background: #fff8d5;
+    }
+    .slot-icon {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 17px;
+      place-items: center;
+      border-radius: 16px;
+      background: #e8f3df;
+      font-size: 27px;
+    }
+    .slot-tag {
+      margin-bottom: 7px;
+      color: #bb5e4d;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .slot-name {
+      margin: 0 0 6px;
+      color: var(--green-deep);
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: -.04em;
+      line-height: 1.12;
+    }
+    .slot-detail {
+      margin: 0 0 17px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .slot-action { margin-top: auto; border-color: var(--green-deep); background: var(--yellow); color: var(--green-deep); }
+    .slot-action:hover:not(:disabled) { background: #ee8069; }
+    .selection-bar { background: var(--green-deep); }
+    .feeding-card {
+      overflow: hidden;
+      border: 0;
+      background: var(--green-deep);
+      color: var(--cream);
+    }
+    .feeding-card .card-label, .feeding-card .feeding-person { color: #d8e5d7; }
+    .feeding-card .feeding-time { color: var(--cream); }
+    .feeding-card .special-mark { font-size: 34px; }
+    .slot-status.taken { color: #8a645b; }
+    .slot-status.taken::before { background: #ee8069; }
+    .boris-cardbody { display: flex; align-items: center; gap: 16px; }
+    .boris-portrait {
+      display: grid;
+      width: 76px;
+      height: 76px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 23px;
+      background: var(--yellow);
+      font-size: 46px;
+    }
+    .feeding-card .feeding-time { margin: 0 0 5px; font-size: 30px; }
+    .feeding-card .feeding-person { margin: 0; font-size: 13px; line-height: 1.45; }
+    .site-footer { color: var(--green-dark); }
+    .status-button:hover:not(:disabled) { background: var(--yellow); }
+    .slot.is-selected { border-color: #ee8069; }
+    .status-tools {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .status-button {
+      min-height: 38px;
+      padding: 8px 13px;
+      border: 1px solid var(--green-deep);
+      border-radius: 12px;
+      background: transparent;
+      color: var(--green-deep);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .status-message { margin: 0; color: var(--green-dark); font-size: 12px; }
+
+    @media (max-width: 850px) {
+      .slots { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 600px) {
+      .slots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 850px) {
+      .slots { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 600px) {
+      .slots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
   </style>
 </head>
 <body>
@@ -452,7 +580,7 @@
       <span class="brand-mark" aria-hidden="true">🐾</span>
       <span>догяндекс</span>
     </a>
-    <span class="header-note">Маленькая команда — большие прогулки</span>
+    <span class="header-note">Команда заботится о Борисе</span>
   </header>
 
   <main id="top">
@@ -460,104 +588,89 @@
       <div class="hero-copy">
         <p class="eyebrow">Пёс дня: Борис</p>
         <h1 id="hero-title">Кто гуляет с Борисом?</h1>
-        <p class="hero-description">Выбирай удобное время, выходи на свежий воздух и прихвати с собой хорошее настроение.</p>
+        <p class="hero-description">Выбери удобное время для прогулки с офисным любимцем. Это демонстрационная страница: запись не сохраняется.</p>
         <time class="date-pill" id="today-date">Сегодня</time>
       </div>
       <svg class="dog-art" viewBox="0 0 360 300" role="img" aria-labelledby="dog-title dog-desc">
-        <title id="dog-title">Портрет Бориса</title>
-        <desc id="dog-desc">Весёлая рисованная собака с зелёным ошейником</desc>
-        <ellipse cx="184" cy="270" rx="112" ry="15" fill="#24513c" opacity=".16"/>
-        <path d="M96 145c-20-35-29-84-9-106 23-25 57 9 78 35l38-1c27-35 61-57 83-33 18 20 6 66-17 103l7 54c4 35-19 59-54 59h-83c-39 0-63-26-58-64z" fill="#d98b50" stroke="#173a2b" stroke-width="7" stroke-linejoin="round"/>
-        <path d="M99 106c-13-30-20-53-10-64 13-15 37 14 50 34zM267 105c15-31 22-53 12-64-13-15-37 14-50 34z" fill="#8e4f35" stroke="#173a2b" stroke-width="7" stroke-linejoin="round"/>
-        <path d="M117 149c6-25 25-39 53-38 22 1 35 15 36 37 1 24-18 38-45 37-29-1-48-12-44-36z" fill="#fff1d2" stroke="#173a2b" stroke-width="6"/>
-        <path d="M210 148c7-24 27-37 53-34 22 3 33 19 30 41-3 23-22 35-48 31-28-4-42-17-35-38z" fill="#fff1d2" stroke="#173a2b" stroke-width="6"/>
-        <ellipse cx="152" cy="129" rx="7" ry="10" fill="#173a2b"/>
-        <ellipse cx="251" cy="129" rx="7" ry="10" fill="#173a2b"/>
-        <path d="M185 157c-2-13 8-22 22-22 14 0 23 9 21 22-2 10-12 16-22 16-10 0-19-6-21-16z" fill="#173a2b"/>
-        <path d="M207 174c-2 14-16 22-28 16" fill="none" stroke="#173a2b" stroke-width="5" stroke-linecap="round"/>
-        <path d="M91 183c40 25 138 28 194-1l8 26c-55 33-159 31-210 0z" fill="#77bd72" stroke="#173a2b" stroke-width="6" stroke-linejoin="round"/>
-        <circle cx="190" cy="216" r="10" fill="#ffdf50" stroke="#173a2b" stroke-width="4"/>
-        <path d="M113 241c17 13 28 15 43 12M239 253c13 3 26-1 39-12" fill="none" stroke="#173a2b" stroke-width="7" stroke-linecap="round"/>
-        <path d="M95 95c-7 17-8 31-4 42M280 96c7 16 9 29 5 42" fill="none" stroke="#fff1d2" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+        <title id="dog-title">Борис, офисный пёс</title>
+        <desc id="dog-desc">Весёлый рыжий пёс с жёлтым ошейником</desc>
+        <ellipse cx="185" cy="267" rx="112" ry="15" fill="#24513c" opacity=".18"/>
+        <path d="M120 196c-14 33-12 55 8 62 15 5 27-5 34-23h48c8 18 20 28 35 23 20-7 22-29 8-62z" fill="#bb7848" stroke="#173a2b" stroke-width="6"/>
+        <path d="M94 129c-5-52 31-91 90-91s95 39 90 91l-9 42c-7 36-38 58-81 58s-74-22-81-58z" fill="#d99458" stroke="#173a2b" stroke-width="7"/>
+        <path d="M108 104c-31-5-46-28-40-62 3-18 15-25 28-12 15 15 27 39 29 62zM260 104c31-5 46-28 40-62-3-18-15-25-28-12-15 15-27 39-29 62z" fill="#9c5b3e" stroke="#173a2b" stroke-width="7" stroke-linejoin="round"/>
+        <path d="M119 151c-1-22 13-35 33-35 20 0 33 14 31 34-2 18-16 28-34 27-18-1-29-10-30-26zM194 150c-1-20 12-34 31-34 20 0 33 13 33 33 0 19-12 29-31 29-19 0-32-10-33-28z" fill="#fff0d2"/>
+        <ellipse cx="153" cy="133" rx="6" ry="8" fill="#173a2b"/>
+        <ellipse cx="231" cy="133" rx="6" ry="8" fill="#173a2b"/>
+        <path d="M174 165c2-14 14-23 28-23s26 9 28 23c1 12-11 20-28 20s-29-8-28-20z" fill="#173a2b"/>
+        <path d="M201 183c-2 13-14 20-27 16M202 183c2 13 14 20 27 16" fill="none" stroke="#173a2b" stroke-width="4" stroke-linecap="round"/>
+        <path d="M119 215c42 18 111 18 164 0l-7 25c-49 18-100 19-150 0z" fill="#ffdf50" stroke="#173a2b" stroke-width="5"/>
+        <circle cx="202" cy="236" r="9" fill="#ee8069" stroke="#173a2b" stroke-width="3"/>
+        <path d="M84 79l-20-15M282 78l20-14M53 122l-20 3M309 122l20 3" stroke="#ee8069" stroke-width="6" stroke-linecap="round"/>
       </svg>
-      <span class="hero-sticker" aria-hidden="true">БОБРЫЙ<br>ДЕНЬ!</span>
+      <span class="hero-sticker" aria-hidden="true">ХОРОШАЯ<br>ПРОГУЛКА!</span>
     </section>
 
     <section id="walks" aria-labelledby="walks-title">
       <div class="section-heading">
         <div>
           <h2 id="walks-title">Прогулки сегодня</h2>
-          <p>Выбери свободное время — только для примера.</p>
+          <p>Пять коротких выходов на свежий воздух вместе с Борисом.</p>
         </div>
-        <span class="demo-badge">Демо · без записи</span>
+        <span class="demo-badge">Демо · без бронирования</span>
       </div>
 
-      <div class="slots" aria-label="Демонстрационные слоты прогулки">
-        <article class="slot">
-          <time class="slot-time" datetime="10:00">10:00</time>
-          <span class="slot-status">Свободно</span>
-          <button class="slot-action" type="button" data-slot="10:00" aria-pressed="false">Выбрать слот</button>
-        </article>
-        <article class="slot">
-          <time class="slot-time" datetime="12:00">12:00</time>
-          <span class="slot-status taken">Занято · Алексей П.</span>
-          <button class="slot-action" type="button" disabled aria-label="Слот 12:00 занят">Уже занято</button>
-        </article>
-        <article class="slot">
-          <time class="slot-time" datetime="14:00">14:00</time>
-          <span class="slot-status">Свободно</span>
-          <button class="slot-action" type="button" data-slot="14:00" aria-pressed="false">Выбрать слот</button>
-        </article>
-        <article class="slot">
-          <time class="slot-time" datetime="16:00">16:00</time>
-          <span class="slot-status taken">Занято · Мария К.</span>
-          <button class="slot-action" type="button" disabled aria-label="Слот 16:00 занят">Уже занято</button>
-        </article>
-        <article class="slot">
-          <time class="slot-time" datetime="18:00">18:00</time>
-          <span class="slot-status">Свободно</span>
-          <button class="slot-action" type="button" data-slot="18:00" aria-pressed="false">Выбрать слот</button>
-        </article>
-      </div>
+      <div class="slots" id="menu-items" aria-label="Время прогулок" aria-live="polite"></div>
 
       <div class="selection-bar" aria-live="polite">
-        <p class="selection-message" id="selection-message">Нажми «Выбрать слот», чтобы отметить удобное время. Выбор не сохраняется.</p>
-        <button class="reset-button" id="reset-selection" type="button" disabled>Сбросить выбор</button>
+        <p class="selection-message" id="selection-message">Загружаем время прогулок…</p>
+        <button class="reset-button" id="reset-selection" type="button" hidden>Сбросить выбор</button>
       </div>
     </section>
 
-    <section class="support-grid" aria-label="Забота о Борисе">
+    <section class="support-grid" aria-label="О Борисе и как выбрать прогулку">
       <article class="feeding-card">
-        <p class="card-label">Последнее кормление · демо</p>
-        <p class="feeding-time"><time datetime="2026-10-19T09:15:00+03:00">09:15</time></p>
-        <p class="feeding-person">Синтетические данные: Саша Тестов</p>
+        <p class="card-label">Знакомьтесь</p>
+        <div class="boris-cardbody">
+          <span class="boris-portrait" aria-hidden="true">🐕</span>
+          <div>
+            <p class="feeding-time">Пёс Борис</p>
+            <p class="feeding-person">Главный специалист по прогулкам, палочкам и хорошему настроению.</p>
+          </div>
+        </div>
       </article>
 
       <article class="steps-card">
-        <h2>Всё просто</h2>
+        <h2>Как выбрать прогулку</h2>
         <ol class="steps">
-          <li><span class="step-number">1</span>Посмотри, какие слоты свободны.</li>
-          <li><span class="step-number">2</span>Выбери удобное время для прогулки.</li>
-          <li><span class="step-number">3</span>Сверься с командой и порадуй Бориса.</li>
+          <li><span class="step-number">1</span>Посмотри, какие часы доступны.</li>
+          <li><span class="step-number">2</span>Выбери удобное время прогулки.</li>
+          <li><span class="step-number">3</span>Сбрось отметку, если передумал.</li>
         </ol>
+        <div class="status-tools">
+          <button class="status-button" id="check-time" type="button">Проверить время</button>
+          <p class="status-message" id="status-message" aria-live="polite">Серверное время ещё не проверено.</p>
+        </div>
       </article>
     </section>
 
-    <footer class="site-footer">Догяндекс · учебный макет. Слоты и кормление — примеры; записи не создаются и не сохраняются.</footer>
+    <footer class="site-footer">Догяндекс · учебное демо. Выбор не является бронированием и нигде не сохраняется.</footer>
   </main>
 
   <script>
     const dateElement = document.querySelector("#today-date");
+    const menuElement = document.querySelector("#menu-items");
     const selectionMessage = document.querySelector("#selection-message");
     const resetButton = document.querySelector("#reset-selection");
-    const slotButtons = [...document.querySelectorAll("[data-slot]")];
-    const dateFormatter = new Intl.DateTimeFormat("ru-RU", {
+    const statusButton = document.querySelector("#check-time");
+    const statusMessage = document.querySelector("#status-message");
+    const formatMoscow = new Intl.DateTimeFormat("ru-RU", {
       dateStyle: "full",
       timeZone: "Europe/Moscow"
     });
     let selectedSlot = null;
+    let requestInProgress = false;
 
-    dateElement.textContent = dateFormatter.format(new Date());
+    dateElement.textContent = formatMoscow.format(new Date());
     dateElement.dateTime = new Intl.DateTimeFormat("en-CA", {
       year: "numeric",
       month: "2-digit",
@@ -565,30 +678,135 @@
       timeZone: "Europe/Moscow"
     }).format(new Date());
 
-    function clearSelection() {
-      selectedSlot = null;
-      for (const button of slotButtons) {
-        button.setAttribute("aria-pressed", "false");
-        button.closest(".slot").classList.remove("is-selected");
+    async function requestJson(url, options) {
+      const response = await fetch(url, options);
+      const payload = await response.json();
+      if (!response.ok) {
+        throw new Error(payload.error || `Ошибка запроса (${response.status})`);
       }
-      selectionMessage.textContent = "Нажми «Выбрать слот», чтобы отметить удобное время. Выбор не сохраняется.";
-      resetButton.disabled = true;
+      return payload;
     }
 
-    for (const button of slotButtons) {
-      button.addEventListener("click", () => {
-        selectedSlot = button.dataset.slot;
-        for (const candidate of slotButtons) {
-          const selected = candidate === button;
-          candidate.setAttribute("aria-pressed", String(selected));
-          candidate.closest(".slot").classList.toggle("is-selected", selected);
+    function updateSelectionView() {
+      for (const card of menuElement.querySelectorAll(".slot")) {
+        const selected = card.dataset.slotId === selectedSlot;
+        card.classList.toggle("is-selected", selected);
+        card.querySelector(".slot-action").setAttribute("aria-pressed", String(selected));
+      }
+      resetButton.hidden = selectedSlot === null;
+    }
+
+    function setBusy(isBusy) {
+      requestInProgress = isBusy;
+      for (const button of menuElement.querySelectorAll(".slot-action")) {
+        button.disabled = isBusy;
+      }
+      resetButton.disabled = isBusy;
+      statusButton.disabled = isBusy;
+    }
+
+    function createSlotCard(slot) {
+      const card = document.createElement("article");
+      card.className = "slot";
+      card.dataset.slotId = slot.id;
+
+      const icon = document.createElement("span");
+      icon.className = "slot-icon";
+      icon.setAttribute("aria-hidden", "true");
+      icon.textContent = "🐾";
+
+      const time = document.createElement("time");
+      time.className = "slot-time";
+      time.dateTime = slot.time;
+      time.textContent = slot.time;
+
+      const status = document.createElement("span");
+      status.className = "slot-status";
+      status.textContent = "Свободно · демо";
+
+      const button = document.createElement("button");
+      button.className = "slot-action";
+      button.type = "button";
+      button.textContent = "Выбрать время";
+      button.setAttribute("aria-pressed", "false");
+      button.addEventListener("click", () => selectSlot(slot));
+
+      card.append(icon, time, status, button);
+      return card;
+    }
+
+    async function selectSlot(slot) {
+      if (requestInProgress) return;
+      setBusy(true);
+      selectionMessage.textContent = "Отправляем демонстрационный выбор…";
+      try {
+        const result = await requestJson("/api/selection", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: slot.id })
+        });
+        selectedSlot = slot.id;
+        updateSelectionView();
+        selectionMessage.textContent = result.message;
+      } catch (error) {
+        selectionMessage.textContent = `Не удалось выбрать время: ${error.message}`;
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    resetButton.addEventListener("click", async () => {
+      if (requestInProgress || selectedSlot === null) return;
+      setBusy(true);
+      selectionMessage.textContent = "Сбрасываем демонстрационный выбор…";
+      try {
+        const result = await requestJson("/api/reset", { method: "POST" });
+        selectedSlot = null;
+        updateSelectionView();
+        selectionMessage.textContent = result.message;
+      } catch (error) {
+        selectionMessage.textContent = `Не удалось сбросить выбор: ${error.message}`;
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    statusButton.addEventListener("click", async () => {
+      if (requestInProgress) return;
+      setBusy(true);
+      statusMessage.textContent = "Проверяем время…";
+      try {
+        const result = await requestJson("/api/status");
+        const serverTime = new Date(result.time);
+        statusMessage.textContent = `Время сервера: ${new Intl.DateTimeFormat("ru-RU", {
+          dateStyle: "short",
+          timeStyle: "medium",
+          timeZone: "Europe/Moscow"
+        }).format(serverTime)} (Москва)`;
+      } catch (error) {
+        statusMessage.textContent = `Не удалось проверить время: ${error.message}`;
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    async function loadMenu() {
+      try {
+        const result = await requestJson("/api/menu");
+        if (!Array.isArray(result.items) || result.items.length !== 5 ||
+            result.items.some((slot) => typeof slot.id !== "string" || typeof slot.time !== "string")) {
+          throw new Error("Сервер вернул некорректное меню.");
         }
-        selectionMessage.textContent = `Отмечено время ${selectedSlot}. Это только локальный выбор для демонстрации — запись не создаётся.`;
-        resetButton.disabled = false;
-      });
+        for (const slot of result.items) {
+          menuElement.append(createSlotCard(slot));
+        }
+        selectionMessage.textContent = "Выбери время прогулки. Это демонстрационный выбор, он не сохраняется.";
+      } catch (error) {
+        selectionMessage.textContent = `Не удалось загрузить время прогулок: ${error.message}`;
+      }
     }
 
-    resetButton.addEventListener("click", clearSelection);
+    loadMenu();
   </script>
 </body>
 </html>
