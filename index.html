@@ -219,12 +219,6 @@
       box-shadow: var(--shadow);
     }
 
-    .slot.is-selected {
-      outline: 4px solid var(--yellow);
-      outline-offset: 2px;
-      background: #fff8d5;
-    }
-
     .slot-time {
       display: block;
       margin-bottom: 20px;
@@ -275,7 +269,7 @@
       transform: translateY(-2px);
     }
 
-    .slot-action:focus-visible, .reset-button:focus-visible, a:focus-visible {
+    .slot-action:focus-visible, a:focus-visible {
       outline: 3px solid #2868bc;
       outline-offset: 3px;
     }
@@ -305,24 +299,6 @@
       font-size: 14px;
       font-weight: 700;
       line-height: 1.4;
-    }
-
-    .reset-button {
-      flex: 0 0 auto;
-      min-height: 38px;
-      padding: 8px 14px;
-      border: 1px solid rgb(255 255 255 / 70%);
-      border-radius: 11px;
-      background: transparent;
-      color: white;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .reset-button:disabled {
-      opacity: .45;
-      cursor: not-allowed;
     }
 
     .support-grid {
@@ -471,11 +447,6 @@
       background: var(--cream);
       box-shadow: 0 10px 28px rgb(39 63 46 / 7%);
     }
-    .slot.is-selected {
-      outline: 3px solid var(--yellow);
-      outline-offset: 2px;
-      background: #fff8d5;
-    }
     .slot-icon {
       display: grid;
       width: 48px;
@@ -536,41 +507,69 @@
     .feeding-card .feeding-time { margin: 0 0 5px; font-size: 30px; }
     .feeding-card .feeding-person { margin: 0; font-size: 13px; line-height: 1.45; }
     .site-footer { color: var(--green-dark); }
-    .status-button:hover:not(:disabled) { background: var(--yellow); }
-    .slot.is-selected { border-color: #ee8069; }
-    .status-tools {
+    @media (max-width: 850px) {
+      .slots { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 600px) {
+      .slots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 850px) {
+      .slots { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 600px) {
+      .slots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .header-note {
       display: flex;
       align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 14px;
+      gap: 18px;
     }
-    .status-button {
-      min-height: 38px;
-      padding: 8px 13px;
-      border: 1px solid var(--green-deep);
-      border-radius: 12px;
-      background: transparent;
-      color: var(--green-deep);
-      cursor: pointer;
-      font-size: 12px;
+    .header-note a { color: inherit; text-decoration: none; }
+    .slot { min-height: 270px; }
+    .slot-form {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: auto;
+    }
+    .slot-form label {
+      color: var(--muted);
+      font-size: 11px;
       font-weight: 800;
     }
-    .status-message { margin: 0; color: var(--green-dark); font-size: 12px; }
-
-    @media (max-width: 850px) {
-      .slots { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .slot-name-input {
+      width: 100%;
+      min-height: 39px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: white;
+      color: var(--ink);
+      font: inherit;
+      font-size: 12px;
     }
-
+    .slot-name-input:focus-visible {
+      outline: 3px solid #2868bc;
+      outline-offset: 2px;
+    }
+    .slot-owner {
+      width: 100%;
+      margin: auto 0 0;
+      padding: 11px;
+      border-radius: 12px;
+      background: #e8f3df;
+      color: var(--green-deep);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
     @media (max-width: 600px) {
-      .slots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 850px) {
-      .slots { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 600px) {
-      .slots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .header-note { gap: 10px; }
+      .slot { min-height: 250px; }
     }
   </style>
 </head>
@@ -580,7 +579,10 @@
       <span class="brand-mark" aria-hidden="true">🐾</span>
       <span>догяндекс</span>
     </a>
-    <span class="header-note">Команда заботится о Борисе</span>
+    <nav class="header-note" aria-label="Навигация">
+      <a href="#walks">Расписание</a>
+      <a href="#about">О Борисе</a>
+    </nav>
   </header>
 
   <main id="top">
@@ -588,7 +590,7 @@
       <div class="hero-copy">
         <p class="eyebrow">Пёс дня: Борис</p>
         <h1 id="hero-title">Кто гуляет с Борисом?</h1>
-        <p class="hero-description">Выбери удобное время для прогулки с офисным любимцем. Это демонстрационная страница: запись не сохраняется.</p>
+        <p class="hero-description">Выбери свободное время и запишись на прогулку с офисным любимцем. Общее расписание сохраняет выбор для всей команды.</p>
         <time class="date-pill" id="today-date">Сегодня</time>
       </div>
       <svg class="dog-art" viewBox="0 0 360 300" role="img" aria-labelledby="dog-title dog-desc">
@@ -616,25 +618,24 @@
           <h2 id="walks-title">Прогулки сегодня</h2>
           <p>Пять коротких выходов на свежий воздух вместе с Борисом.</p>
         </div>
-        <span class="demo-badge">Демо · без бронирования</span>
+        <span class="demo-badge">Общее расписание</span>
       </div>
 
       <div class="slots" id="menu-items" aria-label="Время прогулок" aria-live="polite"></div>
 
       <div class="selection-bar" aria-live="polite">
         <p class="selection-message" id="selection-message">Загружаем время прогулок…</p>
-        <button class="reset-button" id="reset-selection" type="button" hidden>Сбросить выбор</button>
       </div>
     </section>
 
-    <section class="support-grid" aria-label="О Борисе и как выбрать прогулку">
+    <section class="support-grid" id="about" aria-label="О Борисе и как выбрать прогулку">
       <article class="feeding-card">
-        <p class="card-label">Знакомьтесь</p>
+        <p class="card-label">Последнее кормление</p>
         <div class="boris-cardbody">
           <span class="boris-portrait" aria-hidden="true">🐕</span>
           <div>
-            <p class="feeding-time">Пёс Борис</p>
-            <p class="feeding-person">Главный специалист по прогулкам, палочкам и хорошему настроению.</p>
+            <p class="feeding-time">12:30</p>
+            <p class="feeding-person">Ответственный: Алексей Тестовый</p>
           </div>
         </div>
       </article>
@@ -642,67 +643,43 @@
       <article class="steps-card">
         <h2>Как выбрать прогулку</h2>
         <ol class="steps">
-          <li><span class="step-number">1</span>Посмотри, какие часы доступны.</li>
-          <li><span class="step-number">2</span>Выбери удобное время прогулки.</li>
-          <li><span class="step-number">3</span>Сбрось отметку, если передумал.</li>
+          <li><span class="step-number">1</span>Посмотри, какие часы свободны.</li>
+          <li><span class="step-number">2</span>Укажи ФИО и запишись на прогулку.</li>
+          <li><span class="step-number">3</span>Проверь общее расписание команды.</li>
         </ol>
-        <div class="status-tools">
-          <button class="status-button" id="check-time" type="button">Проверить время</button>
-          <p class="status-message" id="status-message" aria-live="polite">Серверное время ещё не проверено.</p>
-        </div>
       </article>
     </section>
 
-    <footer class="site-footer">Догяндекс · учебное демо. Выбор не является бронированием и нигде не сохраняется.</footer>
+    <footer class="site-footer">Догяндекс · общее расписание прогулок с Борисом.</footer>
   </main>
 
   <script>
     const dateElement = document.querySelector("#today-date");
     const menuElement = document.querySelector("#menu-items");
     const selectionMessage = document.querySelector("#selection-message");
-    const resetButton = document.querySelector("#reset-selection");
-    const statusButton = document.querySelector("#check-time");
-    const statusMessage = document.querySelector("#status-message");
     const formatMoscow = new Intl.DateTimeFormat("ru-RU", {
       dateStyle: "full",
       timeZone: "Europe/Moscow"
     });
-    let selectedSlot = null;
+    const expectedTimes = ["10:00", "12:00", "14:00", "16:00", "18:00"];
     let requestInProgress = false;
-
-    dateElement.textContent = formatMoscow.format(new Date());
-    dateElement.dateTime = new Intl.DateTimeFormat("en-CA", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      timeZone: "Europe/Moscow"
-    }).format(new Date());
 
     async function requestJson(url, options) {
       const response = await fetch(url, options);
       const payload = await response.json();
       if (!response.ok) {
-        throw new Error(payload.error || `Ошибка запроса (${response.status})`);
+        const error = new Error(payload.error || `Ошибка запроса (${response.status})`);
+        error.status = response.status;
+        throw error;
       }
       return payload;
     }
 
-    function updateSelectionView() {
-      for (const card of menuElement.querySelectorAll(".slot")) {
-        const selected = card.dataset.slotId === selectedSlot;
-        card.classList.toggle("is-selected", selected);
-        card.querySelector(".slot-action").setAttribute("aria-pressed", String(selected));
-      }
-      resetButton.hidden = selectedSlot === null;
-    }
-
     function setBusy(isBusy) {
       requestInProgress = isBusy;
-      for (const button of menuElement.querySelectorAll(".slot-action")) {
-        button.disabled = isBusy;
+      for (const control of menuElement.querySelectorAll("input, button")) {
+        control.disabled = isBusy;
       }
-      resetButton.disabled = isBusy;
-      statusButton.disabled = isBusy;
     }
 
     function createSlotCard(slot) {
@@ -722,85 +699,91 @@
 
       const status = document.createElement("span");
       status.className = "slot-status";
-      status.textContent = "Свободно · демо";
+      status.classList.toggle("taken", slot.booked);
+      status.textContent = slot.booked ? "Занято" : "Свободно";
+      card.append(icon, time, status);
+
+      if (slot.booked) {
+        const owner = document.createElement("p");
+        owner.className = "slot-owner";
+        owner.textContent = `Записан: ${slot.fullName}`;
+        card.append(owner);
+        return card;
+      }
+
+      const form = document.createElement("form");
+      form.className = "slot-form";
+      const label = document.createElement("label");
+      label.htmlFor = `name-${slot.id.replace(":", "-")}`;
+      label.textContent = "ФИО";
+
+      const input = document.createElement("input");
+      input.className = "slot-name-input";
+      input.id = label.htmlFor;
+      input.name = "fullName";
+      input.type = "text";
+      input.autocomplete = "name";
+      input.maxLength = 120;
+      input.required = true;
+      input.placeholder = "Ваши имя и фамилия";
 
       const button = document.createElement("button");
       button.className = "slot-action";
-      button.type = "button";
-      button.textContent = "Выбрать время";
-      button.setAttribute("aria-pressed", "false");
-      button.addEventListener("click", () => selectSlot(slot));
+      button.type = "submit";
+      button.textContent = "Записаться";
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        selectSlot(slot, input.value);
+      });
 
-      card.append(icon, time, status, button);
+      form.append(label, input, button);
+      card.append(form);
       return card;
     }
 
-    async function selectSlot(slot) {
+    async function selectSlot(slot, fullName) {
       if (requestInProgress) return;
       setBusy(true);
-      selectionMessage.textContent = "Отправляем демонстрационный выбор…";
+      selectionMessage.textContent = "Сохраняем запись…";
       try {
         const result = await requestJson("/api/selection", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: slot.id })
+          body: JSON.stringify({ id: slot.id, fullName })
         });
-        selectedSlot = slot.id;
-        updateSelectionView();
+        await loadMenu();
         selectionMessage.textContent = result.message;
       } catch (error) {
-        selectionMessage.textContent = `Не удалось выбрать время: ${error.message}`;
+        if (error.status === 409) {
+          await loadMenu();
+        }
+        selectionMessage.textContent = `Не удалось записаться: ${error.message}`;
       } finally {
         setBusy(false);
       }
     }
 
-    resetButton.addEventListener("click", async () => {
-      if (requestInProgress || selectedSlot === null) return;
-      setBusy(true);
-      selectionMessage.textContent = "Сбрасываем демонстрационный выбор…";
-      try {
-        const result = await requestJson("/api/reset", { method: "POST" });
-        selectedSlot = null;
-        updateSelectionView();
-        selectionMessage.textContent = result.message;
-      } catch (error) {
-        selectionMessage.textContent = `Не удалось сбросить выбор: ${error.message}`;
-      } finally {
-        setBusy(false);
-      }
-    });
-
-    statusButton.addEventListener("click", async () => {
-      if (requestInProgress) return;
-      setBusy(true);
-      statusMessage.textContent = "Проверяем время…";
-      try {
-        const result = await requestJson("/api/status");
-        const serverTime = new Date(result.time);
-        statusMessage.textContent = `Время сервера: ${new Intl.DateTimeFormat("ru-RU", {
-          dateStyle: "short",
-          timeStyle: "medium",
-          timeZone: "Europe/Moscow"
-        }).format(serverTime)} (Москва)`;
-      } catch (error) {
-        statusMessage.textContent = `Не удалось проверить время: ${error.message}`;
-      } finally {
-        setBusy(false);
-      }
-    });
-
     async function loadMenu() {
       try {
         const result = await requestJson("/api/menu");
-        if (!Array.isArray(result.items) || result.items.length !== 5 ||
-            result.items.some((slot) => typeof slot.id !== "string" || typeof slot.time !== "string")) {
+        if (typeof result.date !== "string" || !Array.isArray(result.items) ||
+            result.items.length !== expectedTimes.length ||
+            result.items.some((slot, index) =>
+              slot.id !== expectedTimes[index] ||
+              slot.time !== expectedTimes[index] ||
+              typeof slot.booked !== "boolean" ||
+              (slot.booked && typeof slot.fullName !== "string"))) {
           throw new Error("Сервер вернул некорректное меню.");
         }
-        for (const slot of result.items) {
-          menuElement.append(createSlotCard(slot));
+        const [year, month, day] = result.date.split("-").map(Number);
+        dateElement.textContent = formatMoscow.format(
+          new Date(Date.UTC(year, month - 1, day, 12))
+        );
+        dateElement.dateTime = result.date;
+        menuElement.replaceChildren(...result.items.map(createSlotCard));
+        if (selectionMessage.textContent === "Загружаем время прогулок…") {
+          selectionMessage.textContent = "Выбери свободное время и укажи ФИО. Запись видна всей команде.";
         }
-        selectionMessage.textContent = "Выбери время прогулки. Это демонстрационный выбор, он не сохраняется.";
       } catch (error) {
         selectionMessage.textContent = `Не удалось загрузить время прогулок: ${error.message}`;
       }

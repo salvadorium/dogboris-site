@@ -3,9 +3,11 @@
 const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
+const { DatabaseSync } = require("node:sqlite");
 
 const PORT = Number(process.env.PORT || 3000);
 const INDEX_PATH = path.join(__dirname, "index.html");
+const DATABASE_PATH = process.env.DATABASE_PATH || path.join(__dirname, "data", "dogboris.sqlite");
 const MENU = Object.freeze([
   { id: "10:00", time: "10:00" },
   { id: "12:00", time: "12:00" },
@@ -13,6 +15,42 @@ const MENU = Object.freeze([
   { id: "16:00", time: "16:00" },
   { id: "18:00", time: "18:00" }
 ].map(Object.freeze));
+const MOSCOW_DATE_FORMATTER = new Intl.DateTimeFormat("en-CA", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  timeZone: "Europe/Moscow"
+});
+
+fs.mkdirSync(path.dirname(DATABASE_PATH), { recursive: true });
+const database = new DatabaseSync(DATABASE_PATH);
+database.exec(`
+  PRAGMA busy_timeout = 5000;
+  CREATE TABLE IF NOT EXISTS slots (
+    date TEXT NOT NULL,
+    time TEXT NOT NULL,
+    full_name TEXT NOT NULL,
+    UNIQUE (date, time)
+  ) STRICT;
+`);
+
+const getBookings = database.prepare(
+  "SELECT time, full_name AS fullName FROM slots WHERE date = ?"
+);
+const insertBooking = database.prepare(`
+  INSERT INTO slots (date, time, full_name)
+  VALUES (?, ?, ?)
+  ON CONFLICT (date, time) DO NOTHING
+`);
+
+function getMoscowDate() {
+  const parts = Object.fromEntries(
+    MOSCOW_DATE_FORMATTER.formatToParts(new Date())
+      .filter((part) => part.type !== "literal")
+      .map(({ type, value }) => [type, value])
+  );
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
 
 function sendJson(response, statusCode, payload) {
   response.writeHead(statusCode, {
@@ -64,7 +102,18 @@ async function handleRequest(request, response) {
   }
 
   if (request.method === "GET" && pathname === "/api/menu") {
-    sendJson(response, 200, { items: MENU });
+    const date = getMoscowDate();
+    const bookings = new Map(
+      getBookings.all(date).map(({ time, fullName }) => [time, fullName])
+    );
+    sendJson(response, 200, {
+      date,
+      items: MENU.map((slot) => ({
+        ...slot,
+        booked: bookings.has(slot.id),
+        fullName: bookings.get(slot.id) || null
+      }))
+    });
     return;
   }
 
@@ -79,30 +128,30 @@ async function handleRequest(request, response) {
       return;
     }
 
-    if (!payload || typeof payload.id !== "string" || !MENU.some((slot) => slot.id === payload.id)) {
-      sendJson(response, 400, { error: "Unknown walk time" });
+    const slot = payload && MENU.find((item) => item.id === payload.id);
+    const fullName = typeof payload?.fullName === "string" ? payload.fullName.trim() : "";
+    if (!slot) {
+      sendJson(response, 400, { error: "Выберите время из расписания." });
+      return;
+    }
+    if (!fullName || fullName.length > 120 || /[\u0000-\u001f\u007f]/u.test(fullName)) {
+      sendJson(response, 400, { error: "Укажите ФИО (не более 120 символов)." });
       return;
     }
 
-    sendJson(response, 200, {
-      ok: true,
-      message: `Выбрано время ${payload.id}. Это локальное демо, запись не сохраняется.`
-    });
-    return;
-  }
+    const date = getMoscowDate();
+    const result = insertBooking.run(date, slot.time, fullName);
+    if (result.changes === 0) {
+      sendJson(response, 409, {
+        error: `Слот ${slot.time} уже занят. Выберите другое время.`
+      });
+      return;
+    }
 
-  if (request.method === "POST" && pathname === "/api/reset") {
-    sendJson(response, 200, {
+    sendJson(response, 201, {
       ok: true,
-      message: "Демо-выбор сброшен."
-    });
-    return;
-  }
-
-  if (request.method === "GET" && pathname === "/api/status") {
-    sendJson(response, 200, {
-      ok: true,
-      time: new Date().toISOString()
+      message: `Вы записаны на ${slot.time}.`,
+      booking: { date, time: slot.time, fullName }
     });
     return;
   }
